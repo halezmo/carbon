@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import I18n from 'i18n-js';
 import tagComponent from '../../utils/helpers/tags';
-import { DraggableContext } from './../drag-and-drop';
+import { DraggableContext, CustomDragLayer } from './../drag-and-drop';
 import Button from './../button';
 import ConfigurableItemRow from './configurable-item-row';
 import Form from './../form';
@@ -99,6 +99,9 @@ class ConfigurableItems extends React.Component {
             onSubmit={ this.props.onSave }
             onCancel={ this.props.onCancel }
           >
+            <CustomDragLayer>
+              <ConfigurableItemRow />
+            </CustomDragLayer>
             { this.rows() }
           </Form>
         </DraggableContext>

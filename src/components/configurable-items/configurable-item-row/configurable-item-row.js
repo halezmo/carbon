@@ -17,6 +17,14 @@ class ConfigurableItemRow extends React.Component {
     className: PropTypes.string,
 
     /**
+     * Determine if the component is being used as the ghost version for drag and drop.
+     *
+     * @property customDragLayer
+     * @type {Boolean}
+     */
+    customDragLayer: PropTypes.bool.isRequired,
+
+    /**
      * The checked value for the checkbox.
      *
      * @property enabled
@@ -62,6 +70,10 @@ class ConfigurableItemRow extends React.Component {
     dragAndDropActiveIndex: PropTypes.number // tracks the currently active index
   }
 
+  static defaultProps = {
+    customDragLayer: false
+  }
+
   checkbox(enabled, locked, name, onChange) {
     return (
       <Checkbox
@@ -73,15 +85,24 @@ class ConfigurableItemRow extends React.Component {
     );
   }
 
-  icon() {
+  iconHTML() {
     return (
-      <WithDrag>
-        <div>
-          <Icon
-            className='configurable-item-row__icon'
-            type='drag_vertical'
-          />
-        </div>
+      <div>
+        <Icon
+          className='configurable-item-row__icon'
+          type='drag_vertical'
+        />
+      </div>
+    );
+  }
+
+  icon() {
+    if (this.props.customDragLayer) {
+      return this.iconHTML();
+    }
+    return (
+      <WithDrag draggableProps={ this.props } draggableNode={ this._draggableNode } >
+        {this.iconHTML()}
       </WithDrag>
     );
   }
@@ -119,16 +140,28 @@ class ConfigurableItemRow extends React.Component {
     return typeof (dragAndDropActiveIndex) === 'number';
   }
 
-  render() {
+  listItemHTML = () => {
     const { rowIndex, enabled, locked, name, onChange } = this.props;
     return (
-      <WithDrop index={ rowIndex } { ...tagComponent('configurable-item-row', this.props) }>
-        <li className={ this.classes(this.context.dragAndDropActiveIndex, rowIndex) }>
-          <div className='configurable-item-row__content-wrapper'>
-            { this.icon() }
-            { this.checkbox(enabled, locked, name, onChange) }
-          </div>
-        </li>
+      <li
+        className={ this.classes(this.context.dragAndDropActiveIndex, rowIndex) }
+        ref={ (node) => { this._draggableNode = node; } }
+      >
+        <div className='configurable-item-row__content-wrapper'>
+          { this.icon() }
+          { this.checkbox(enabled, locked, name, onChange) }
+        </div>
+      </li>
+    );
+  }
+
+  render() {
+    if (this.props.customDragLayer) {
+      return this.listItemHTML();
+    }
+    return (
+      <WithDrop index={ this.props.rowIndex } { ...tagComponent('configurable-item-row', this.props) }>
+        { this.listItemHTML() }
       </WithDrop>
     );
   }

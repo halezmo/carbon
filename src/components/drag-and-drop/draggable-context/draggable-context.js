@@ -127,7 +127,8 @@ class DraggableContext extends React.Component {
    */
   handleBeginDrag = (props) => {
     return {
-      index: props.index
+      index: props.index,
+      ...props
     };
   }
 
