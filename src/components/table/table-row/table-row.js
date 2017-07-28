@@ -431,7 +431,14 @@ class TableRow extends React.Component {
       return null;
     }
 
-    return <DraggableTableCell identifier={ this.props.dragAndDropIdentifier } />;
+    return (
+      <DraggableTableCell
+        customDragLayer={ this.props.customDragLayer }
+        identifier={ this.props.dragAndDropIdentifier }
+        row={ this._row }
+        rowProps={ this.props }
+      />
+    );
   }
 
   /**
@@ -442,7 +449,7 @@ class TableRow extends React.Component {
    * @return {Object} JSX
    */
   renderDraggableRow = (row) => {
-    if (!this.context.dragDropManager) {
+    if (!this.context.dragDropManager || this.props.customDragLayer) {
       return row;
     }
 
@@ -469,7 +476,11 @@ class TableRow extends React.Component {
     }
 
     return this.renderDraggableRow(
-      <tr { ...this.rowProps } { ...tagComponent('table-row', this.props) }>
+      <tr
+        { ...this.rowProps }
+        { ...tagComponent('table-row', this.props) }
+        ref={ (node) => { this._row = node; } }
+      >
         { this.renderDraggableCell() }
 
         { content }

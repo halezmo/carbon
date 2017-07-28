@@ -56,3 +56,26 @@
 .carbon-table-row--dragging {
   @include disable-text-selection;
 }
+
+.carbon-table-row--dragged {
+  border-bottom: 1px solid $table-border-color;
+
+  .carbon-table-cell {
+    visibility: hidden;
+  }
+}
+
+.custom-drag-layer {
+  .carbon-table-row {
+    background-color: $grey-light;
+    display: block;
+
+    .carbon-table-cell {
+      background-color: $grey-light;
+    }
+
+    .configurable-item-row__content-wrapper {
+      visibility: visible;
+    }
+  }
+}

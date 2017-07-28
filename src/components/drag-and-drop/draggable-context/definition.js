@@ -4,9 +4,10 @@ import ComponentActions from './../../../../demo/actions/component';
 import Definition from './../../../../demo/utils/definition';
 import WithDragDefinition from './../with-drag/definition';
 import WithDropDefinition from './../with-drop/definition';
+import CustomDragLayerDefinition from './../custom-drag-layer/definition';
 
 let definition = new Definition('draggable-context', DraggableContext, {
-  associatedDefinitions: [WithDropDefinition, WithDragDefinition],
+  associatedDefinitions: [WithDropDefinition, WithDragDefinition, CustomDragLayerDefinition],
 
   hiddenProps: ['children', 'onDrag'],
 
@@ -23,18 +24,22 @@ let definition = new Definition('draggable-context', DraggableContext, {
   dataVariable: 'dndData',
 
   propValues: {
+    columns: 1,
     tbody: false,
     children: `<thead>
-    <TableRow as="header">
-      <TableHeader />
-      <TableHeader>Country</TableHeader>
-    </TableRow>
-  </thead>
-  <DraggableContext onDrag={ updateDndData }>
-    <tbody>
-      { buildRows() }
-    </tbody>
-  </DraggableContext>`
+      <TableRow as="header">
+        <TableHeader />
+        <TableHeader>Country</TableHeader>
+      </TableRow>
+    </thead>
+    <DraggableContext onDrag={ updateDndData }>
+      <tbody>
+        <CustomDragLayer>
+          { buildRows()[0] }
+        </CustomDragLayer>
+        { buildRows() }
+      </tbody>
+    </DraggableContext>`
   },
 
   js: `function buildRows() {
