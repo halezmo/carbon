@@ -54,7 +54,7 @@
     "bignumber.js": "~4.0.2",
     "bowser": "~1.5.0",
     "classnames": "~2.2.3",
-    "crypto-js": "~3.1.6",
+    "crypto-js": "~3.2.1",
     "es6-promise": "~3.2.1",
     "escape-string-regexp": "~1.0.5",
     "events": "~1.1.1",
