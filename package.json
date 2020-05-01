@@ -11,7 +11,8 @@
     "debug:listen": "node --debug-brk ./node_modules/.bin/jest --runInBand",
     "debug:start": "node-inspector",
     "release-version": "node check-version.js && npm install && npm publish",
-    "prepublish": "rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && NODE_ENV=production babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
+    "prepublish": "npm run snyk-protect && rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && NODE_ENV=production babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet",
+    "snyk-protect": "snyk protect"
   },
   "repository": {
     "type": "git",
@@ -67,9 +68,11 @@
     "react-dnd": "~2.4.0",
     "react-dnd-touch-backend": "0.2.7",
     "react-highcharts": "~11.5.0",
-    "superagent": "~2.2.0"
+    "superagent": "~2.2.0",
+    "snyk": "^1.316.1"
   },
   "jest": {
     "preset": "./node_modules/carbon-factory/jest.conf.json"
-  }
+  },
+  "snyk": true
 }
