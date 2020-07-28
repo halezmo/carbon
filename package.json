@@ -60,7 +60,7 @@
     "events": "~1.1.1",
     "form-serialize": "~0.7.0",
     "lodash": "~4.15.0",
-    "marked": "~0.3.6",
+    "marked": "~1.1.1",
     "moment": "~2.15.1",
     "prop-types": "~15.5.8",
     "react-date-picker": "~5.3.28",
