@@ -62,7 +62,7 @@
     "lodash": "~4.15.0",
     "marked": "~0.3.6",
     "moment": "~2.15.1",
-    "prop-types": "~15.5.8",
+    "prop-types": "~15.6.2",
     "react-date-picker": "~5.3.28",
     "react-dnd": "~2.4.0",
     "react-dnd-touch-backend": "0.2.7",
